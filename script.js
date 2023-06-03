@@ -15,8 +15,7 @@ var humanArr = [];
 var side = 50;
 function setup() {
     frameRate(15);
-    createCanvas(matrix[0].length * side, matrix.length *
-        side);
+    createCanvas(matrix[0].length * side, matrix.length * side); 
     background('#acacac');
     for (var y = 0; y < matrix.length; ++y) {
         for (var x = 0; x < matrix[y].length; ++x) {
@@ -44,29 +43,29 @@ function setup() {
     }
 }
 function draw() {
-    if(grassEaterArr.length== 0){
+    if (grassEaterArr.length == 0) {
         for (var y = 0; y < matrix.length; y++) {
-            for (var x = 0; x < matrix[y].length; x++){
-                if (matrix[y][x] == 2){
-                    matrix[y][x] =0
+            for (var x = 0; x < matrix[y].length; x++) {
+                if (matrix[y][x] == 2) {
+                    matrix[y][x] = 0;
                 }
             }
         }
     }
-    if(allEaterArr.length== 0){
+    if (allEaterArr.length == 0) {
         for (var y = 0; y < matrix.length; y++) {
-            for (var x = 0; x < matrix[y].length; x++){
-                if (matrix[y][x] == 3){
-                    matrix[y][x] =0
+            for (var x = 0; x < matrix[y].length; x++) {
+                if (matrix[y][x] == 3) {
+                    matrix[y][x] = 0;
                 }
             }
         }
     }
-    if(humanArr.length== 0){
+    if (humanArr.length == 0) {
         for (var y = 0; y < matrix.length; y++) {
-            for (var x = 0; x < matrix[y].length; x++){
-                if (matrix[y][x] == 6){
-                    matrix[y][x] =0
+            for (var x = 0; x < matrix[y].length; x++) {
+                if (matrix[y][x] == 6) {
+                    matrix[y][x] = 0;
                 }
             }
         }
@@ -104,7 +103,6 @@ function draw() {
     }
     for (var i in grassEaterArr) {
         grassEaterArr[i].mul();
-        
         grassEaterArr[i].eat();
         grassEaterArr[i].move(0);
         grassEaterArr[i].die();
@@ -114,17 +112,15 @@ function draw() {
         allEaterArr[i].eat();
         allEaterArr[i].move(0);
         allEaterArr[i].die();
-        
     }
-    for(var i in matrixExtenderArr){
+    for (var i in matrixExtenderArr) {
         matrixExtenderArr[i].move();
         matrixExtenderArr[i].die();
     }
-    for(var i in humanArr){
+    for (var i in humanArr) {
         humanArr[i].mul();
         humanArr[i].eat();
         humanArr[i].move(0);
-       
         humanArr[i].die();
     }
 }

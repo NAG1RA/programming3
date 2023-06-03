@@ -1,11 +1,8 @@
-class GrassEater {
+class GrassEater extends GameFeatures {
     constructor(x, y, index) {
-        this.x = x;
-        this.y = y;
+        super(x, y, index);
         this.energy = 8;
         this.multiply = 0;
-        this.index = index;
-        this.directions = [];
     }
     getNewCoordinates() {
         this.directions = [
@@ -21,20 +18,9 @@ class GrassEater {
     }
     chooseCell(character) {
         this.getNewCoordinates();
-        var found = [];
-        for (var i in this.directions) {
-            var x = this.directions[i][0];
-            var y = this.directions[i][1];
-            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] == character) {
-                    found.push(this.directions[i]);
-                }
-            }
-        }
-        return found;
+        return super.chooseCell(character);
     }
     move(character) {
-
         var newCell = random(this.chooseCell(character));
         this.energy--;
         if (newCell) {
@@ -43,14 +29,9 @@ class GrassEater {
             this.x = newCell[0];
             this.y = newCell[1];
         }
-        // else if (newCell == undefined) {
-        //     matrix[this.y][this.x] = 0;
-        // }
         if (character == 1) {
             return newCell;
         }
-
-
     }
     eat() {
         var food = this.move(1);
@@ -64,7 +45,6 @@ class GrassEater {
             this.energy += 2;
         }
     }
-
     mul() {
         this.multiply++;
         var newCell = random(this.chooseCell(0));
@@ -82,6 +62,7 @@ class GrassEater {
             for (var i in grassEaterArr) {
                 if (grassEaterArr[i].x == this.x && grassEaterArr[i].y == this.y) {
                     grassEaterArr.splice(i, 1);
+                    break;
                 }
             }
         }

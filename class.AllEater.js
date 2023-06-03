@@ -1,11 +1,8 @@
-class AllEater {
+class AllEater extends GameFeatures {
     constructor(x, y, index) {
-        this.x = x;
-        this.y = y;
+        super(x, y, index);
         this.energy = 8;
         this.multiply = 0;
-        this.index = index;
-        this.directions = [];
     }
     getNewCoordinates() {
         this.directions = [
@@ -21,17 +18,7 @@ class AllEater {
     }
     chooseCell(character) {
         this.getNewCoordinates();
-        var found = [];
-        for (var i in this.directions) {
-            var x = this.directions[i][0];
-            var y = this.directions[i][1];
-            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] == character) {
-                    found.push(this.directions[i]);
-                }
-            }
-        }
-        return found;
+        return super.chooseCell(character);
     }
     move(character) {
         var newCell = random(this.chooseCell(character));
@@ -42,14 +29,10 @@ class AllEater {
             this.x = newCell[0];
             this.y = newCell[1];
         }
-        // else if (newCell == undefined) {
-        //     matrix[this.y][this.x] = 0;
-        // }
         if (character == 2 || character == 6) {
             return newCell;
         }
     }
-
     eat() {
         var food = this.move(2);
         if (food) {
@@ -72,11 +55,9 @@ class AllEater {
             this.energy += 2;
         }
     }
-
     mul() {
         this.multiply++;
         var newCell = random(this.chooseCell(0));
-
         if (this.multiply > 10 && newCell) {
             var newAllEater = new AllEater(newCell[0], newCell[1], this.index);
             allEaterArr.push(newAllEater);
@@ -91,9 +72,9 @@ class AllEater {
             for (var i in allEaterArr) {
                 if (allEaterArr[i].x == this.x && allEaterArr[i].y == this.y) {
                     allEaterArr.splice(i, 1);
+                    break;
                 }
             }
-          
         }
     }
 }

@@ -1,11 +1,8 @@
-class Human {
+class Human extends GameFeatures {
     constructor(x, y, index) {
-        this.x = x;
-        this.y = y;
+        super(x, y, index);
         this.energy = 8;
         this.multiply = 0;
-        this.index = index;
-        this.directions = [];
     }
     getNewCoordinates() {
         this.directions = [
@@ -21,17 +18,7 @@ class Human {
     }
     chooseCell(character) {
         this.getNewCoordinates();
-        var found = [];
-        for (var i in this.directions) {
-            var x = this.directions[i][0];
-            var y = this.directions[i][1];
-            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] == character) {
-                    found.push(this.directions[i]);
-                }
-            }
-        }
-        return found;
+        return super.chooseCell(character);
     }
     move(character) {
         var newCell = random(this.chooseCell(character));
@@ -42,14 +29,10 @@ class Human {
             this.x = newCell[0];
             this.y = newCell[1];
         }
-        // else if (newCell == undefined) {
-        //     matrix[this.y][this.x] = 0;
-        // }
         if (character == 2) {
             return newCell;
         }
     }
-
     eat() {
         var food = this.move(2);
         if (food) {
@@ -66,13 +49,11 @@ class Human {
     mul() {
         this.multiply++;
         var newCell = random(this.chooseCell(0));
-
         if (this.multiply > 10 && newCell) {
             var newhuman = new Human(newCell[0], newCell[1], this.index);
             humanArr.push(newhuman);
             matrix[newCell[1]][newCell[0]] = 6;
             this.multiply = 0;
-
         }
     }
     die() {
@@ -81,6 +62,7 @@ class Human {
             for (var i in humanArr) {
                 if (humanArr[i].x == this.x && humanArr[i].y == this.y) {
                     humanArr.splice(i, 1);
+                    break;
                 }
             }
             matrix[this.y][this.x] = 0;
