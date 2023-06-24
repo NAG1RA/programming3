@@ -1,8 +1,8 @@
 {
-  "grasses": 427,
-  "grassEaters": 1,
+  "grasses": 425,
+  "grassEaters": 0,
   "allEaters": 0,
   "humans": 0,
   "matrixextender": 0,
-  "monster": 0
+  "monster": 1
 }

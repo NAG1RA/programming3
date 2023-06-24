@@ -102,6 +102,10 @@ module.exports = class MatrixExtender extends gm {
                     matrix[this.y][this.x] = 6;
                     matrix[newCell[1]][newCell[0]] = 8;
                 }
+                else if (matrix[newCell[1]][newCell[0]] == 5) {
+                    matrix[this.y][this.x] = 5;
+                    matrix[newCell[1]][newCell[0]] = 8;
+                }
                 this.x = newCell[0];
                 this.y = newCell[1];
             }

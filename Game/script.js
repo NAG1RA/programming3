@@ -37,6 +37,9 @@ function drawMatrix(data) {
             else if (matrix[y][x] == 5) {
                 fill(169, 5, 245);
             }
+            else if (matrix[y][x] == 9) {
+                fill(0, 76, 255);
+            }
             rect(x * side, y * side, side, side);
         }
     }

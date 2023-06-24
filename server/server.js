@@ -1,5 +1,6 @@
 var express = require("express");
 var fs = require("fs");
+const ChAdder = require("./modules/class.ChAdder");
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
@@ -16,7 +17,7 @@ allEaterArr = [];
 matrixExtenderArr = [];
 humanArr = [];
 monsterArr = [];
-
+chadderArr = [];
 Main = require("./modules/class.Main");
 Grass = require("./modules/class.Grass");
 GrassEater = require("./modules/class.GrassEater");
@@ -24,8 +25,8 @@ AllEater = require("./modules/class.AllEater");
 Human = require("./modules/class.Human");
 MatrixExtender = require("./modules/class.MatrixExtender");
 Monster = require("./modules/class.Monster");
-
-var flag = false;
+ChAdder = require("./modules/class.ChAdder");
+var flag = true;
 io.on("connection", function (socket) {
     setInterval(drawForBackend, 5000);
     flag = false;
@@ -37,7 +38,7 @@ matrix = [
     [0, 1, 0, 0, 6, 1, 0, 0, 0, 0, 1, 1, 0],
     [2, 6, 1, 0, 3, 0, 5, 0, 8, 1, 2, 3, 0],
     [1, 1, 0, 0, 0, 0, 0, 0, 3, 2, 2, 1, 1],
-    [1, 1, 0, 6, 0, 3, 0, 0, 0, 0, 0, 0, 0],
+    [1, 1, 0, 6, 0, 3, 9, 0, 0, 0, 0, 0, 0],
     [1, 1, 0, 0, 0, 0, 0, 2, 0, 6, 0, 1, 1]
 ];
 
@@ -64,9 +65,13 @@ for (var y = 0; y < matrix.length; ++y) {
             var Hum = new Human(x, y, 6);
             humanArr.push(Hum);
         }
-        else if (matrix[y][x] == 6) {
+        else if (matrix[y][x] == 5) {
             var mon = new Monster(x, y, 5);
             monsterArr.push(mon);
+        }
+        else if (matrix[y][x] == 9) {
+            var ad = new ChAdder(x, y, 9);
+            chadderArr.push(ad);
         }
     }
 }
@@ -127,9 +132,13 @@ function drawForBackend() {
         monsterArr[i].move(0);
         monsterArr[i].eat();
     }
+    for (var i in chadderArr) {
+        chadderArr[i].move();
+    }
     let sendData = {
         matrix: matrix,
-        matrixExtenderArr: matrixExtenderArr
+        matrixExtenderArr: matrixExtenderArr,
+        chadderArr: chadderArr
     }
     io.sockets.emit("matrix", sendData)
     statistics = {
@@ -138,7 +147,8 @@ function drawForBackend() {
         allEaters: allEaterArr.length,
         humans: humanArr.length,
         matrixextender: matrixExtenderArr.length,
-        monster: monsterArr.length
+        monster: monsterArr.length,
+        adder: chadderArr.length
     }
     fs.writeFileSync('statistics.json', JSON.stringify(statistics, undefined, 2));
     mystatistics = fs.readFileSync('statistics.json').toString();
