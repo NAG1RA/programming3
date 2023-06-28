@@ -3,7 +3,9 @@ let random = require("./random");
 module.exports = class Monster extends gm {
     constructor(x, y, index) {
         super(x, y, index);
+        this.multiply = 0
     }
+
     getNewCoordinates() {
         this.directions = [
             [this.x - 1, this.y - 1],
@@ -16,22 +18,29 @@ module.exports = class Monster extends gm {
             [this.x + 1, this.y + 1]
         ];
     }
+
     chooseCell(character) {
         this.getNewCoordinates();
         return super.chooseCell(character);
     }
+
     move(character) {
-        var newCell = random(this.chooseCell(character));
-        if (newCell) {
-            matrix[newCell[1]][newCell[0]] = 5;
-            matrix[this.y][this.x] = 0;
-            this.x = newCell[0];
-            this.y = newCell[1];
+        this.multiply++
+        if (this.multiply > 1) {
+            var newCell = random(this.chooseCell(character));
+            if (newCell) {
+                matrix[newCell[1]][newCell[0]] = 5;
+                matrix[this.y][this.x] = 0;
+                this.x = newCell[0];
+                this.y = newCell[1];
+            }
+            else {
+                var newCell = random(this.chooseCell(character));
+            }
         }
-    
-            return newCell;
-        
+        return newCell;
     }
+    
     eat() {
         var food = this.move(1);
         if (food) {

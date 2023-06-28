@@ -15,10 +15,11 @@ module.exports = class Grass extends gm {
             [this.x + 1, this.y + 1]
         ];
     }
-    mul() {
+    
+    mul(mult) {
         this.multiply++;
         var newCell = random(this.chooseCell(0));
-        if (this.multiply >= 8 && newCell) {
+        if (this.multiply > mult && newCell) {
             var newGrass = new Grass(newCell[0], newCell[1], this.index);
             grassArr.push(newGrass);
             matrix[newCell[1]][newCell[0]] = 1;

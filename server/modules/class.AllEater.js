@@ -1,11 +1,13 @@
 const gm = require("./class.Main");
 let random = require("./random");
 module.exports = class AllEater extends gm {
-    constructor(x, y, index) {
+    constructor(x, y, index, isFemale) {
         super(x, y, index);
         this.energy = 8;
         this.multiply = 0;
+        this.isFemale = !isFemale
     }
+    
     getNewCoordinates() {
         this.directions = [
             [this.x - 1, this.y - 1],
@@ -18,10 +20,12 @@ module.exports = class AllEater extends gm {
             [this.x + 1, this.y + 1]
         ];
     }
+
     chooseCell(character) {
         this.getNewCoordinates();
         return super.chooseCell(character);
     }
+
     move(character) {
         var newCell = random(this.chooseCell(character));
         this.energy--;
@@ -31,10 +35,14 @@ module.exports = class AllEater extends gm {
             this.x = newCell[0];
             this.y = newCell[1];
         }
-        if (character == 2 || character == 6) {
+        else {
+            var newCell = random(this.chooseCell(character));
+        }
+        if (character == 2 || character == 6 || character == 1) {
             return newCell;
         }
     }
+
     eat() {
         var food = this.move(2);
         if (food) {
@@ -56,20 +64,32 @@ module.exports = class AllEater extends gm {
             }
             this.energy += 2;
         }
+        var food3 = this.move(1);
+        if (food3) {
+            for (var i in grassArr) {
+                if (food3[0] == grassArr[i].x && food3[1] == grassArr[i].y) {
+                    grassArr.splice(i, 1);
+                    break;
+                }
+            }
+            this.energy += 2;
+        }
     }
-    mul() {
+
+    mul(mult) {
         this.multiply++;
         var newCell = random(this.chooseCell(0));
-        if (this.multiply > 10 && newCell) {
-            var newAllEater = new AllEater(newCell[0], newCell[1], this.index);
+        if (this.multiply > mult && newCell && this.isFemale == true) {
+            var newAllEater = new AllEater(newCell[0], newCell[1], this.index, !this.isFemale);
             allEaterArr.push(newAllEater);
             matrix[newCell[1]][newCell[0]] = 3;
             this.multiply = 0;
             this.energy = 5;
         }
     }
+
     die() {
-        if (this.energy <= 0) {
+        if (this.energy <= 0 && this.isFemale == true) {
             matrix[this.y][this.x] = 0;
             for (var i in allEaterArr) {
                 if (allEaterArr[i].x == this.x && allEaterArr[i].y == this.y) {

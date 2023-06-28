@@ -5,6 +5,7 @@ module.exports = class GameFeatures {
         this.index = index;
         this.directions = [];
     }
+
     chooseCell(character) {
         var found = [];
         for (var i in this.directions) {

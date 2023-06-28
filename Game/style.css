@@ -1,0 +1,59 @@
+#spring {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  vertical-align: top;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+#summer {
+  background-color: #d9ff00;
+  border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  vertical-align: top;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+#winter {
+  background-color: #ffffff;
+  border: solid;
+  color: rgb(0, 0, 0);
+  padding: 13px 32px;
+  text-align: center;
+  vertical-align: top;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+#autumn {
+  background-color: #ffae00;
+  border: none;
+  color: rgb(255, 255, 255);
+  padding: 15px 32px;
+  text-align: center;
+  vertical-align: top;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+#changeframerate {
+  background-color: #000000;
+  border: none;
+  color: rgb(255, 255, 255);
+  padding: 15px 32px;
+  text-align: center;
+  vertical-align: top;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
